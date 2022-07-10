@@ -1,0 +1,36 @@
+.todo-field,
+.category-field,
+.project-field {
+  margin: 10px 0 0 0;
+  display: block;
+}
+
+.dialog-actions {
+  margin: 0;
+  padding: 10px 10px;
+  min-height: auto;
+  justify-content: space-between;
+}
+
+.dialog-title {
+  text-align: center;
+  border-bottom: 1px solid #e2e2e2;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dialog-content {
+  margin: 0;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.dialog-close,
+.dialog-submit {
+  color: white;
+  background-color: #3abcdf;
+  width: 48%;
+  border-radius: 4px;
+}

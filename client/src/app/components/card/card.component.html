@@ -1,5 +1,5 @@
 <mat-card class="project-card">
-  <mat-card-title
+  <mat-card-title class="project-title"
     >{{ title | uppercase }}
     <button
       mat-icon-button
@@ -15,6 +15,7 @@
       *ngFor="let todo of todos | sortByField: 'id'"
     >
       <mat-checkbox
+        class="todo-label"
         [checked]="todo.isCompleted"
         (change)="updateTodo(projectId, todo.id)"
         >{{ todo.title }}</mat-checkbox

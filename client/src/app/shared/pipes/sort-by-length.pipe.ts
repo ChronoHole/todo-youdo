@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Project } from '../models/models';
+import { Project } from '../models/project.interface';
 
 @Pipe({
   name: 'sortByLength',
+  pure: false,
 })
 export class ArraySortLengthPipe implements PipeTransform {
   transform(array: Project[] | null): Project[] {

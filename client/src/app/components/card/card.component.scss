@@ -1,0 +1,41 @@
+.project-card {
+  margin-top: 20px;
+  padding: 0;
+  width: 300px;
+  height: fit-content;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  align-self: flex-start;
+}
+
+.todos-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 6px 10px;
+  margin: 0;
+}
+
+.icon-remove {
+  color: crimson;
+  border: solid 1px #0000000f;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  border-radius: 4px;
+  margin-right: 20px;
+}
+
+.icon-remove .mat-icon {
+  font-size: 20px;
+  display: block;
+}
