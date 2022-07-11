@@ -20,7 +20,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       logger: 'simple-console',
       synchronize: true,
       autoLoadEntities: true,
-      // ssl: { rejectUnauthorized: false },
+      ssl: { rejectUnauthorized: false },
     };
   }
 }
