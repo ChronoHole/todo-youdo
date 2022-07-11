@@ -24,7 +24,15 @@ export class TodoService {
     const todo: Todo = new Todo();
     const project = await this._projectService.getOneById(body.projectId);
     todo.title = body.title;
-    todo.project = project;
+    if (project) {
+      todo.project = project;
+    } else {
+      const newProject = await this._projectService.createProject({
+        title: body.projectTitle,
+        todos: [],
+      });
+      todo.project = newProject;
+    }
     return this._todoRepository.save(todo);
   }
 

@@ -22,11 +22,6 @@ export class ProjectController {
     return this._service.getAllProjects();
   }
 
-  @Post()
-  public createProject(@Body() body: CreateProjectDto): Promise<Project> {
-    return this._service.createProject(body);
-  }
-
   @Delete(':id')
   public removeProject(
     @Param('id', ParseIntPipe) id: number,

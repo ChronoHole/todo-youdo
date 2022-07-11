@@ -1,8 +1,10 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ProjectService } from './project.service';
 import { TodoBody, Todo } from '../shared/models/todo.interface';
+import { Project } from '../shared/models/project.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,7 @@ export class TodoService {
 
   private _url = environment.apiURL;
 
-  public postTodo(body: TodoBody) {
+  public postTodo(body: TodoBody): Observable<Todo> {
     return this._httpClient.post<Todo>(this._url + '/projects/todos', body);
   }
 

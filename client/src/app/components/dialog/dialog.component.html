@@ -68,7 +68,7 @@
           ? !projectForm.valid
           : !(categoryId!.valid && todoTitle!.valid)
       "
-      (click)="categoryId!.value == 'uid' ? makeProject() : makeTodo()"
+      (click)="makeTodo()"
     >
       Ок
     </button>

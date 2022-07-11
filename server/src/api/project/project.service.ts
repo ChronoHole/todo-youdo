@@ -15,11 +15,14 @@ export class ProjectService {
     });
   }
 
-  async getOneById(id: number): Promise<Project> {
-    const project = await this._projectRepository.findOneBy({
-      id: id,
-    });
-    return project;
+  async getOneById(id: number | string): Promise<Project | undefined> {
+    if (typeof id === 'number') {
+      const project = await this._projectRepository.findOneBy({
+        id: id,
+      });
+      return project;
+    }
+    return undefined;
   }
 
   async createProject(body: CreateProjectDto): Promise<Project> {

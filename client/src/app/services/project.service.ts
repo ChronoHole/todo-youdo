@@ -19,10 +19,6 @@ export class ProjectService {
     return this._httpClient.get<Project[]>(this._url + '/projects');
   }
 
-  public postProject(body: ProjectBody) {
-    return this._httpClient.post<Project>(this._url + '/projects', body);
-  }
-
   public deleteProject(projectId: number) {
     return this._httpClient.delete<Project>(
       this._url + '/projects/' + projectId

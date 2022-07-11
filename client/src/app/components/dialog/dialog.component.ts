@@ -70,27 +70,25 @@ export class DialogComponent implements OnInit {
   makeTodo() {
     const projectId = this.categoryId!.value;
     const body: TodoBody = {
-      title: this.todoTitle!.value,
       projectId: projectId,
+      projectTitle: this.projectTitle!.value,
+      title: this.todoTitle!.value,
     };
     const projects = this._projectService.projectsValue;
-    this._todoService.postTodo(body).subscribe((todo) => {
+    this._todoService.postTodo(body).subscribe((data) => {
       const project = projects.find((project) => project.id === projectId);
-      project?.todos.push(todo);
+      if (project) {
+        project.todos.push(data);
+      } else {
+        const newProject: Project = {
+          id: data.project!.id,
+          title: data.project!.title,
+          todos: [data],
+        };
+        projects.push(newProject);
+      }
       this._projectService.projectsValue = projects;
     });
     this._dialogRef.close();
-  }
-  makeProject() {
-    const body: ProjectBody = {
-      title: this.projectTitle!.value,
-      todos: [],
-    };
-    const projects = this._projectService.projectsValue;
-    this._projectService.postProject(body).subscribe((project) => {
-      projects.push(project);
-      this.projectForm.controls['categoryId'].setValue(project.id);
-      this.makeTodo();
-    });
   }
 }
