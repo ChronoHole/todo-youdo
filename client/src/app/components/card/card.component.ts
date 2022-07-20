@@ -31,20 +31,14 @@ export class CardComponent implements DoCheck {
   @Input() todos: Todo[];
 
   removeProject(projectId: number) {
-    this._projectService
-      .deleteProject(projectId)
-      .subscribe(() => this._projectService.afterDeleteProject(projectId));
+    this._projectService.deleteProject(projectId).subscribe();
   }
 
   removeTodo(todoId: number) {
-    this._todoService
-      .deleteTodo(todoId)
-      .subscribe(() => this._todoService.afterDeleteTodo(todoId));
+    this._todoService.deleteTodo(todoId).subscribe();
   }
 
   updateTodo(projectId: number, todoId: number) {
-    this._todoService
-      .patchTodo(projectId, todoId)
-      .subscribe(() => this._todoService.afterPatchTodo(projectId, todoId));
+    this._todoService.patchTodo(projectId, todoId).subscribe();
   }
 }

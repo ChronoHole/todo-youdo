@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Project, ProjectBody } from '../shared/models/project.interface';
 import { environment } from 'src/environments/environment';
 
@@ -12,8 +12,13 @@ export class ProjectService {
 
   private _url = environment.apiURL;
   private _projects = new BehaviorSubject<Project[]>([]);
-
   private _projects$: Observable<Project[]> = this._projects.asObservable();
+
+  private _afterDeleteProject(projectId: number) {
+    this.projectsValue = this._projects.value.filter(
+      (project) => project.id != projectId
+    );
+  }
 
   public getProjects() {
     return this._httpClient.get<Project[]>(this._url + '/projects');
@@ -24,15 +29,9 @@ export class ProjectService {
   }
 
   public deleteProject(projectId: number) {
-    return this._httpClient.delete<Project>(
-      this._url + '/projects/' + projectId
-    );
-  }
-
-  public afterDeleteProject(projectId: number) {
-    this.projectsValue = this._projects.value.filter(
-      (project) => project.id != projectId
-    );
+    return this._httpClient
+      .delete<Project>(this._url + '/projects/' + projectId)
+      .pipe(tap(() => this._afterDeleteProject(projectId)));
   }
 
   public get projects$() {

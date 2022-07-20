@@ -1,3 +1,4 @@
+import { tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -20,19 +21,18 @@ export class TodoService {
   }
 
   public patchTodo(projectId: number, todoId: number) {
-    return this._httpClient.patch(
-      this._url + '/projects/' + projectId + '/todos/' + todoId,
-      ''
-    );
+    return this._httpClient
+      .patch(this._url + '/projects/' + projectId + '/todos/' + todoId, '')
+      .pipe(tap(() => this._afterPatchTodo(projectId, todoId)));
   }
 
   public deleteTodo(todoId: number) {
-    return this._httpClient.delete<Todo>(
-      this._url + '/projects/todos/' + todoId
-    );
+    return this._httpClient
+      .delete<Todo>(this._url + '/projects/todos/' + todoId)
+      .pipe(tap(() => this._afterDeleteTodo(todoId)));
   }
 
-  public afterDeleteTodo(todoId: number) {
+  private _afterDeleteTodo(todoId: number) {
     const projects = this._projectService.projectsValue.map((project) => ({
       ...project,
       todos: project.todos.filter((todo) => todo.id != todoId),
@@ -40,7 +40,7 @@ export class TodoService {
     this._projectService.projectsValue = projects;
   }
 
-  public afterPatchTodo(projectId: number, todoId: number) {
+  private _afterPatchTodo(projectId: number, todoId: number) {
     const projects = this._projectService.projectsValue.map((project) => {
       if (project.id == projectId) {
         return {
