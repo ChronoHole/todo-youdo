@@ -1,0 +1,10 @@
+.app-card {
+  align-self: baseline;
+}
+
+.flex-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 320px);
+  justify-content: space-around;
+  justify-items: center;
+}

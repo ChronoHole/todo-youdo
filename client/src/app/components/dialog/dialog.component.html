@@ -1,0 +1,76 @@
+<div class="dialog-wrapper">
+  <p mat-dialog-title class="dialog-title">НОВАЯ ЗАДАЧА</p>
+  <div mat-dialog-content class="dialog-content">
+    <form [formGroup]="projectForm">
+      <mat-form-field class="todo-field" appearance="outline">
+        <mat-label>Название задачи</mat-label>
+        <input
+          matInput
+          #todo
+          formControlName="todoTitle"
+          placeholder="Название задачи..."
+          maxlength="50"
+        />
+        <mat-hint align="end">{{ todo.value.length }} / 50</mat-hint>
+        <mat-error *ngIf="todoTitle!.hasError('required')">
+          Поле не может быть пустым
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="category-field" appearance="outline">
+        <mat-label>Категория</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option
+            *ngFor="let category of categories"
+            [value]="category.id"
+            (onSelectionChange)="
+              categoryId!.value != 'uid' && projectTitle!.value != ''
+                ? projectTitle!.reset()
+                : ''
+            "
+          >
+            {{ category.title }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="categoryId!.hasError('required')">
+          Выберите категорию
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field
+        *ngIf="categoryId!.value == 'uid'"
+        class="project-field"
+        appearance="outline"
+      >
+        <mat-label>Название категории</mat-label>
+        <input
+          matInput
+          #project
+          formControlName="projectTitle"
+          placeholder="Название категории..."
+          maxlength="30"
+        />
+        <mat-hint align="end">{{ project.value.length }} / 30</mat-hint>
+        <mat-error *ngIf="projectTitle!.hasError('required')">
+          Поле не может быть пустым
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-flat-button mat-dialog-close class="dialog-close">
+      Отмена
+    </button>
+    <button
+      mat-flat-button
+      mat-dialog-submit
+      class="dialog-submit"
+      [disabled]="
+        categoryId!.value == 'uid'
+          ? !projectForm.valid
+          : !(categoryId!.valid && todoTitle!.valid)
+      "
+      (click)="categoryId!.value == 'uid' ? makeProject() : makeTodo()"
+    >
+      Ок
+    </button>
+  </div>
+</div>
